@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 300px; margin: auto; padding: 20px; border: 1px solid #ddd; }
+        .input-group { margin-bottom: 10px; }
+        .input-group select, .input-group input { width: 100%; padding: 10px; margin-top: 5px; }
+        .input-group button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .input-group button:disabled { background: #ccc; }
+        .checkbox-group { margin-bottom: 10px; }
+        .checkbox-group input { margin-right: 5px; }
+        #btnSendSMS { margin-bottom: 10px; }
+        #btnRegister { background: #28a745; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>用户注册</h2>
+    <div class="input-group">
+        <label for="phone">手机号</label>
+        <select id="countryCode">
+            <option value="+86">中国 +86</option>
+            <option value="+852">中国香港特别行政区 +852</option>
+            <option value="+853">中国澳门特别行政区 +853</option>
+            <option value="+886">中国台湾 +886</option>
+            <option value="+1">美国 +1</option>
+            <option value="+32">比利时 +32</option>
+            <option value="+61">澳大利亚 +61</option>
+            <option value="+33">法国 +33</option>
+            <option value="+1">加拿大 +1</option>
+            <option value="+355">阿尔巴尼亚 +355</option>
+            <option value="+213">阿尔及利亚 +213</option>
+            <option value="+93">阿富汗 +93</option>
+            <option value="+54">阿根廷 +54</option>
+            <!-- 在这里添加更多国家和地区的代码 -->
+        </select>
+        <input type="text" id="phone" placeholder="请输入手机号码">
+    </div>
+    <div class="input-group">
+        <button id="btnSendSMS" onclick="sendSMS()">发送短信</button>
+        <span id="countdown"></span>
+    </div>
+    <div class="input-group">
+        <label for="verificationCode">验证码</label>
+        <input type="text" id="verificationCode" placeholder="请输入手机验证码">
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="agree">
+        <label for="agree">我已阅读并同意<a href="terms.html" target="_blank">《用户使用协议》</a></label>
+    </div>
+    <div class="input-group">
+        <button id="btnRegister" onclick="register()" disabled>注册</button>
+    </div>
+</div>
+
+<script>
+    function sendSMS() {
+        // 这里添加发送短信的代码
+        var btn = document.getElementById('btnSendSMS');
+        btn.disabled = true;
+        var countdown = document.getElementById('countdown');
+        var seconds = 60;
+        countdown.innerText = seconds + '秒后重新发送';
+        var interval = setInterval(function() {
+            seconds--;
+            countdown.innerText = seconds + '秒后重新发送';
+            if (seconds <= 0) {
+                clearInterval(interval);
+                btn.disabled = false;
+                countdown.innerText = '';
+            }
+        }, 1000);
+    }
+
+    document.getElementById('agree').addEventListener('change', function(event) {
+        document.getElementById('btnRegister').disabled = !event.target.checked;
+    });
+
+    function register() {
+        var phone = document.getElementById('phone').value;
+        // 手机号保存为用户的账号和密码
+        localStorage.setItem('phone', phone);
+        localStorage.setItem('password', phone);
+        // 设置密码未修改的标记为字符串 'false'
+        localStorage.setItem('passwordChanged', 'false');
+        // 模拟注册成功
+        alert('注册成功！5秒后返回首页');
+        // 5秒后返回首页
+        setTimeout(function() {
+            window.location.href = 'index.html'; // 假设首页的文件名为index.html
+        }, 5000);
+    }
+
+</script>
+
+</body>
+</html>

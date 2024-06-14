@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖规则列表</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; padding: 20px; }
+        .search-box { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .search-input { padding: 10px; width: 80%; }
+        .button-group { display: flex; justify-content: flex-end; }
+        .search-button, .new-rule-button, .set-rule-button, .view-lottery-button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; margin-left: 10px; }
+        .search-button:hover, .new-rule-button:hover, .set-rule-button:hover, .view-lottery-button:hover { background: #0056b3; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table th, .table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .table th { background-color: #f2f2f2; }
+        .edit-button { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .delete-button { padding: 5px 10px; background: #ff4d4d; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="搜索规则名称">
+        <div class="button-group">
+            <button class="search-button">搜索</button>
+            <button class="set-rule-button" onclick="location.href='setchoujiang.html'">抽奖规则设置</button>
+            <button class="new-rule-button">新增规则</button>
+            <button class="view-lottery-button" onclick="location.href='choujiang.html'">查看抽奖界面</button>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>编号</th>
+            <th>规则名称</th>
+            <th>创建时间</th>
+            <th>创建人</th>
+            <th>所属部门</th>
+            <th>简介</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>采购部经理</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>采购部</td>
+            <td>负责汇总设计部的申请采购，编制采购计划，经过采购总监的审核后组织实施</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>17</td>
+            <td>采购部部长</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>采购部</td>
+            <td>负责部门的相关方案拟定、检查、监督、控制与执行</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>16</td>
+            <td>人事部主管</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>人事部</td>
+            <td>负责人事工作制度的制定与完善</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>15</td>
+            <td>人事部经理</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>人事部</td>
+            <td>组织并督促部门人员全面完成本部职责范围内各项工作任务</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>14</td>
+            <td>人事部总监</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>人事部</td>
+            <td>定期与相关部门经理/总监审核并修订公司的组织结构图和人员编制</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>13</td>
+            <td>行政经理</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>行政部</td>
+            <td>计划、指导和协调机构的支持性服务</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>12</td>
+            <td>行政主管</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>行政部</td>
+            <td>行政负责单位的直接工作，人事是分管人员安排、档案和人力资源的有效利用</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>11</td>
+            <td>出纳</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>财政部</td>
+            <td>负责现金和银行的日记账</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>10</td>
+            <td>会计</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>财政部</td>
+            <td>应收会计、应付会计、材料会计、成本会计、税务会计、费用会计等等</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>9</td>
+            <td>财务主管</td>
+            <td>2016-07-03</td>
+            <td>admin</td>
+            <td>财政部</td>
+            <td>负责总账等主要财务工作</td>
+            <td>
+                <button class="edit-button">编辑</button>
+                <button class="delete-button">删除</button>
+            </td>
+        </tr>
+        <!-- 更多规则行 -->
+    </table>
+</div>
+
+<script>
+    // 在此处添加JavaScript代码以处理搜索、新增、编辑、删除操作
+</script>
+
+</body>
+</html>

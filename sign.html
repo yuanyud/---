@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 300px; margin: auto; padding: 20px; border: 1px solid #ddd; }
+        .input-group { margin-bottom: 10px; }
+        .input-group input { width: 100%; padding: 10px; margin-top: 5px; }
+        .input-group button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .input-group button:disabled { background: #ccc; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>用户登录</h2>
+    <div class="input-group">
+        <label for="phone">手机号</label>
+        <input type="text" id="phone" placeholder="请输入手机号码">
+    </div>
+    <div class="input-group">
+        <label for="password">密码</label>
+        <input type="password" id="password" placeholder="请输入密码">
+    </div>
+    <div class="input-group">
+        <button onclick="login()">登录</button>
+    </div>
+</div>
+
+<script>
+    function login() {
+        var phone = document.getElementById('phone').value;
+        var password = document.getElementById('password').value;
+
+        // 检测管理员账号和密码
+        if (phone === 'admin' && password === 'admin') {
+            window.location.href = 'admin.html';
+            return;
+        }
+
+        // 从localStorage中获取注册的账号和密码
+        var registeredPhone = localStorage.getItem('phone');
+        var registeredPassword = localStorage.getItem('password');
+        var passwordChanged = localStorage.getItem('passwordChanged');
+
+        // 验证账号和密码
+        if (phone === registeredPhone && password === registeredPassword) {
+            if(passwordChanged === 'false') { // 如果密码未修改
+                // 跳转到修改密码的页面
+                window.location.href = 'change_password.html';
+            } else {
+                alert('登录成功！');
+                // 假设抽奖页面的文件名为choujiang.html
+                window.location.href = 'choujiang.html';
+            }
+        } else {
+            alert('账号和密码不正确');
+        }
+    }
+</script>
+
+</body>
+</html>

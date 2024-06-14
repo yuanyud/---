@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>抽奖规则设置</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; padding: 20px; }
+        .rule-setting { display: flex; align-items: center; margin-top: 20px; }
+        .circle { width: 30px; height: 30px; background-color: #007bff; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .setting-title { margin-left: 10px; }
+        .setting-section { margin-top: 10px; }
+        .submit-button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; margin-top: 20px; }
+        .temp-save-button { padding: 10px 20px; background: #6c757d; color: white; border: none; cursor: pointer; margin-top: 20px; }
+        .selection-box { margin-bottom: 10px; }
+        .selection-box select, .selection-box input { padding: 10px; margin-top: 5px; width: 100%; }
+        .selection-box label { display: block; margin-top: 20px; }
+        .button { padding: 10px 20px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="rule-setting">
+        <div class="circle">1</div>
+        <div class="setting-title">人员设定</div>
+    </div>
+    <div class="setting-section">
+        <label>选择抽奖人员信息:</label>
+        <select>
+            <option value="onsite">现场人员扫码报名</option>
+            <option value="imported">从已导入的抽奖人员中选择</option>
+        </select>
+    </div>
+
+    <div class="rule-setting">
+        <div class="circle">2</div>
+        <div class="setting-title">奖品设定</div>
+    </div>
+    <div class="setting-section" id="prize-section">
+        <!-- 奖品设定的初始输入字段 -->
+        <div class="prize-entry">
+            <label>奖项名称:</label>
+            <input type="text" placeholder="请输入奖项名称">
+            <label>奖项数量:</label>
+            <input type="number" placeholder="请输入奖项数量">
+            <label>奖品:</label>
+            <input type="text" placeholder="请输入奖品">
+            <button class="remove-prize-button small-text-button" onclick="removePrize(this)">删除</button>
+        </div>
+        <button class="add-prize-button small-text-button" onclick="addPrize()">+ 添加奖品</button>
+    </div>
+
+
+    <div class="rule-setting">
+        <div class="circle">3</div>
+        <div class="setting-title">模式设定</div>
+    </div>
+    <div class="setting-section">
+        <label>选择抽奖模式:</label>
+        <select>
+            <option value="randomWinner">确定奖项后，随机抽取获奖人</option>
+            <option value="randomWinnerExclude">确定奖项后，随机抽取获奖人员，但排除已获奖人员</option>
+            <option value="randomPrize">随机抽取获奖人员后，随机抽取奖品</option>
+            <option value="randomPrizeExclude">随机抽取获奖人员后，随机抽取奖品，但排除已抽取完毕奖品</option>
+        </select>
+    </div>
+
+    <button class="temp-save-button">暂存</button>
+    <button class="submit-button">提交</button>
+</div>
+
+<script>
+    function addPrize() {
+        var prizeSection = document.getElementById('prize-section');
+        var newEntry = document.createElement('div');
+        newEntry.classList.add('prize-entry');
+        newEntry.innerHTML = `
+            <label>奖项名称:</label>
+            <input type="text" placeholder="请输入奖项名称">
+            <label>奖项数量:</label>
+            <input type="number" placeholder="请输入奖项数量">
+            <label>奖品:</label>
+            <input type="text" placeholder="请输入奖品">
+            <button class="remove-prize-button small-text-button" onclick="removePrize(this)">删除</button>
+        `;
+        prizeSection.insertBefore(newEntry, prizeSection.lastChild);
+    }
+
+    function removePrize(button) {
+        var prizeEntry = button.parentNode;
+        prizeEntry.remove();
+    }
+
+    document.querySelector('.temp-save-button').addEventListener('click', function() {
+        // 暂存设置
+        alert('设置已暂存，您可以稍后继续。');
+    });
+
+    document.querySelector('.submit-button').addEventListener('click', function() {
+            // 获取所有奖品设置的输入字段
+            var prizeEntries = document.querySelectorAll('.prize-entry');
+            var prizes = Array.from(prizeEntries).map(function(entry) {
+                return {
+                    name: entry.querySelector('input[type="text"]').value,
+                    quantity: parseInt(entry.querySelector('input[type="number"]').value, 10)
+                };
+            });
+            // 获取抽奖人员信息和抽奖模式
+            var participants = document.querySelector('select').value;
+            var mode = document.querySelector('select').value;
+
+            // 创建抽奖设置对象
+            var prizeSettings = {
+                participants: participants,
+                prizes: prizes,
+                mode: mode
+            };
+        // 将设置保存到本地存储
+        localStorage.setItem('prizeSettings', JSON.stringify(prizeSettings));
+        alert('抽奖规则设置已保存成功！');
+        window.location.href = 'admin.html'; // 假设管理员首页的文件名为admin.html
+    });
+</script>
+
+</body>
+</html>

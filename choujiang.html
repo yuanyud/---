@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./images/icon.jpg" type=image/x-icon rel="shortcut icon" />
+  <script src="./js/md5.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" />
+  <script type="module" crossorigin src="./static/js/index-4d7c33ae.js"></script>
+  <link rel="stylesheet" href="./static/css/name-e9bc7a2d.css">
+  <title>抽奖界面</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .container { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; }
+    .button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+    .button:hover { background: #0056b3; }
+    .result { margin-top: 20px; padding: 10px; border: 1px solid #ddd; }
+    *{-webkit-text-size-adjust: none;}
+  </style>
+</head>
+<body>
+<div id="app"></div>
+
+<div class="container">
+  <h2>欢迎参加抽奖</h2>
+  <button class="button" id="drawButton">点击抽奖</button>
+  <div class="result" id="result">抽奖结果将显示在这里</div>
+</div>
+
+<script>
+  var storedPrizeSettings = localStorage.getItem('prizeSettings');
+  var prizeSettings = storedPrizeSettings ? JSON.parse(storedPrizeSettings) : {
+    participants: 'imported', // 默认值
+    prizes: [ // 默认奖品列表
+      { name: 'iPhone 15', quantity: 20 },
+      { name: 'iPad Pro', quantity: 10 },
+      { name: '10000元现金红包', quantity: 1 },
+      { name: '王者荣耀——地狱火皮肤', quantity: 30 },
+      { name: '1000京东卡', quantity: 5 },
+      { name: '谢谢参与', quantity: 75 }
+    ],
+    mode: 'randomPrizeExclude' // 默认抽奖模式
+  };
+
+  document.getElementById('drawButton').addEventListener('click', function () {
+    // 根据最新的抽奖规则来更新抽奖逻辑
+    var availablePrizes = prizeSettings.prizes.filter(function (prize) {
+      return prize.quantity > 0;
+    });
+
+    // 如果所有奖品都已抽完，重置奖品数量
+    if (availablePrizes.length === 0) {
+      prizeSettings.prizes.forEach(function(prize) {
+        prize.quantity = 10; // 这里设置每个奖品的初始数量
+      });
+      // 更新本地存储的奖品设置
+      localStorage.setItem('prizeSettings', JSON.stringify(prizeSettings));
+      // 重新获取可用奖品列表
+      availablePrizes = prizeSettings.prizes.filter(function (prize) {
+        return prize.quantity > 0;
+      });
+    }
+
+    // 进行抽奖
+    var resultIndex = Math.floor(Math.random() * availablePrizes.length);
+    var result = availablePrizes[resultIndex]; // 获取抽奖结果
+
+    // 更新奖品数量
+    if (result) {
+      result.quantity -= 1;
+      document.getElementById('result').innerText = '恭喜你，获得：' + result.name;
+      // 保存更新后的奖品数量到本地存储
+      localStorage.setItem('prizeSettings', JSON.stringify(prizeSettings));
+    } else {
+      document.getElementById('result').innerText = '抱歉，奖品已抽完';
+    }
+  });
+
+</script>
+
+<script src="./js/menu/jquery.min.js"></script>
+<script src="./js/menu/GalMenu.js"></script>
+<script src="https://kbm.llgal.xyz/static/autoload.js"></script>
+
+</body>
+</html>
